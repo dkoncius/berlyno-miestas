@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="lt" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berlynas – Kultūros, Istorijos ir Laisvės Miestas</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+                    },
+                    colors: {
+                        cream: {
+                            DEFAULT: '#F2F0E4',
+                            light: '#F9F8F3',
+                        },
+                        sage: {
+                            DEFAULT: '#C4C8B8',
+                            muted: '#A8AD9A',
+                        },
+                        highlight: {
+                            tan: '#E8E3D3',
+                            sage: '#D8DDD0',
+                        },
+                        charcoal: {
+                            DEFAULT: '#1A1A1A',
+                            soft: '#3D3D3D',
+                        },
+                        muted: '#6B6B63',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .editorial-card {
+            background: #F9F8F3;
+            border: 1px solid rgba(26, 26, 26, 0.06);
+            box-shadow: 0 24px 48px -12px rgba(26, 26, 26, 0.08);
+        }
+        .text-marker {
+            background-color: #E8E3D3;
+            padding: 0 0.35em;
+            font-style: italic;
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+        }
+        .text-marker-sage {
+            background-color: #D8DDD0;
+            padding: 0 0.35em;
+            font-style: italic;
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+        }
+        .btn-pill {
+            border-radius: 9999px;
+            background: #fff;
+            padding: 0.75rem 1.75rem;
+            color: #1A1A1A;
+            font-weight: 500;
+            border: 1px solid rgba(26, 26, 26, 0.08);
+            box-shadow: 0 2px 12px rgba(26, 26, 26, 0.06);
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .btn-pill:hover {
+            box-shadow: 0 4px 20px rgba(26, 26, 26, 0.1);
+            transform: translateY(-1px);
+        }
+        .hero-gallery img {
+            border-radius: 20px;
+            object-fit: cover;
+            width: 100%;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F2F0E4; }
+        ::-webkit-scrollbar-thumb { background: #C4C8B8; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #A8AD9A; }
+    </style>
+</head>
+<body class="bg-cream text-charcoal font-sans antialiased selection:bg-highlight-tan selection:text-charcoal">
+
+    <!-- NAVIGACIJA -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-cream/90 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-3 items-center h-20">
+                <div class="hidden md:flex items-center gap-8 text-sm font-medium text-charcoal-soft">
+                    <a href="#lankytinos-vietos" class="hover:text-charcoal transition-colors">Lankytinos vietos</a>
+                    <a href="#rajonai" class="hover:text-charcoal transition-colors">Rajonai</a>
+                    <a href="#marsrutai" class="hover:text-charcoal transition-colors">Maršrutai</a>
+                </div>
+                <a href="#" class="justify-self-center font-serif text-2xl sm:text-3xl font-semibold tracking-[0.2em] text-charcoal uppercase">
+                    Berlynas
+                </a>
+                <div class="flex items-center justify-end gap-6">
+                    <a href="#patarimai" class="hidden md:inline text-sm font-medium text-charcoal-soft hover:text-charcoal transition-colors">Patarimai</a>
+                    <a href="#kontaktas" class="hidden sm:inline-flex btn-pill text-sm py-2 px-5">Planuoti kelionę</a>
+                    <button id="mobile-menu-btn" type="button" class="md:hidden flex flex-col gap-1.5 p-2 focus:outline-none" aria-label="Meniu">
+                        <span class="block w-6 h-px bg-charcoal"></span>
+                        <span class="block w-6 h-px bg-charcoal"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-cream-light border-t border-charcoal/5 px-4 pt-2 pb-6 space-y-3">
+            <a href="#lankytinos-vietos" class="block px-3 py-2 text-base font-medium text-charcoal-soft hover:text-charcoal">Lankytinos Vietos</a>
+            <a href="#rajonai" class="block px-3 py-2 text-base font-medium text-charcoal-soft hover:text-charcoal">Rajonai</a>
+            <a href="#marsrutai" class="block px-3 py-2 text-base font-medium text-charcoal-soft hover:text-charcoal">Kelionės Maršrutai</a>
+            <a href="#patarimai" class="block px-3 py-2 text-base font-medium text-charcoal-soft hover:text-charcoal">Patarimai</a>
+            <a href="#kontaktas" class="block text-center btn-pill mt-4">Planuoti Kelionę</a>
+        </div>
+    </nav>
+
+    <!-- HERO SEKCIJA -->
+    <header class="pt-28 sm:pt-32 pb-8 sm:pb-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-xs sm:text-sm font-medium tracking-[0.25em] uppercase text-muted mb-8 sm:mb-10">
+                Tavo gidas po Vokietijos sostinę
+            </p>
+
+            <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-charcoal leading-[1.15] mb-8">
+                Atraskite Berlyną:<br>
+                <span class="text-marker">Miestą be ribų.</span>
+            </h1>
+
+            <p class="max-w-xl mx-auto text-base sm:text-lg text-charcoal-soft leading-relaxed font-light mb-10">
+                Nuo didingos istorijos ir UNESCO muziejų iki technokultūros bei alternatyvaus meno. Patirkite unikalų kontrastų ir laisvės pojūtį.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 sm:mb-24">
+                <a href="#lankytinos-vietos" class="btn-pill inline-flex items-center gap-2">
+                    Pradėti pažintį
+                </a>
+                <a href="#marsrutai" class="text-sm font-medium text-charcoal-soft hover:text-charcoal transition-colors underline-offset-4 hover:underline">
+                    Kelionės maršrutai
+                </a>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto text-center border-t border-charcoal/10 pt-12">
+                <div>
+                    <div class="font-serif text-3xl sm:text-4xl text-charcoal">3.8M+</div>
+                    <div class="text-xs tracking-wide uppercase text-muted mt-2">Gyventojų</div>
+                </div>
+                <div>
+                    <div class="font-serif text-3xl sm:text-4xl text-charcoal">170+</div>
+                    <div class="text-xs tracking-wide uppercase text-muted mt-2">Muziejų</div>
+                </div>
+                <div>
+                    <div class="font-serif text-3xl sm:text-4xl text-charcoal">2,500+</div>
+                    <div class="text-xs tracking-wide uppercase text-muted mt-2">Parkų ir skverų</div>
+                </div>
+                <div>
+                    <div class="font-serif text-3xl sm:text-4xl text-charcoal">24/7</div>
+                    <div class="text-xs tracking-wide uppercase text-muted mt-2">Kultūrinis gyvenimas</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-gallery max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 sm:mt-16">
+            <div class="flex items-end justify-center gap-3 sm:gap-4 overflow-x-auto pb-4">
+                <img src="https://images.unsplash.com/photo-1599946347371-68eb71b16afc?q=80&w=400&auto=format&fit=crop" alt="" class="h-32 sm:h-40 md:h-44 w-24 sm:w-32 flex-shrink-0" aria-hidden="true">
+                <img src="https://images.unsplash.com/photo-1566404791232-af9fe0ae8f8b?q=80&w=400&auto=format&fit=crop" alt="" class="h-40 sm:h-52 md:h-56 w-28 sm:w-36 flex-shrink-0" aria-hidden="true">
+                <img src="https://images.unsplash.com/photo-1560969184-10fe8719e047?q=80&w=500&auto=format&fit=crop" alt="Berlyno Brandenburgo vartai" class="h-48 sm:h-64 md:h-72 w-32 sm:w-44 md:w-52 flex-shrink-0 shadow-lg">
+                <img src="https://images.unsplash.com/photo-1584003564911-a7a321c84e1c?q=80&w=400&auto=format&fit=crop" alt="" class="h-36 sm:h-48 md:h-52 w-28 sm:w-36 flex-shrink-0" aria-hidden="true">
+                <img src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?q=80&w=400&auto=format&fit=crop" alt="" class="h-32 sm:h-40 md:h-44 w-24 sm:w-32 flex-shrink-0" aria-hidden="true">
+            </div>
+        </div>
+    </header>
+
+    <!-- LANKYTINOS VIETOS SEKCIJA -->
+    <section id="lankytinos-vietos" class="py-24 bg-cream-light relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-2xl mb-16">
+                <h2 class="text-xs font-medium tracking-[0.25em] uppercase text-muted mb-4">Top simboliai</h2>
+                <h3 class="font-serif text-3xl sm:text-5xl font-medium text-charcoal mb-4 leading-tight">
+                    Garsiausios vietos.<br>
+                    <span class="text-marker-sage">Privaloma pamatyti.</span>
+                </h3>
+                <p class="text-charcoal-soft text-base sm:text-lg font-light leading-relaxed">Objektai, kuriuos privalo pamatyti kiekvienas, apsilankęs Vokietijos sostinėje.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Kortelė 1 -->
+                <div class="bg-white rounded-[20px] overflow-hidden group hover:-translate-y-1 transition-all duration-300 border border-charcoal/5 shadow-sm hover:shadow-md">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1599946347371-68eb71b16afc?q=80&w=800&auto=format&fit=crop" 
+                             alt="Brandenburgo vartai" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/800x600/1e293b/ffffff?text=Brandenburg+Gate'">
+                        <span class="absolute top-4 right-4 bg-white/95 text-charcoal text-[10px] font-medium tracking-wider px-3 py-1 rounded-full uppercase">Must Visit</span>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-serif text-2xl font-semibold text-charcoal mb-2">Brandenburgo Vartai</h4>
+                        <p class="text-muted text-sm mb-4 leading-relaxed">
+                            Neoklasikinis XVIII a. paminklas ir vienas svarbiausių Vokietijos vienybės bei Taikos simbolių.
+                        </p>
+                        <div class="flex items-center justify-between text-xs text-muted pt-4 border-t border-charcoal/10">
+                            <span><i class="fa-regular fa-clock mr-1"></i> Visada atidaryta</span>
+                            <span><i class="fa-solid fa-euro-sign mr-1"></i> Nemokama</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kortelė 2 -->
+                <div class="bg-white rounded-[20px] overflow-hidden group hover:-translate-y-1 transition-all duration-300 border border-charcoal/5 shadow-sm hover:shadow-md">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1566404791232-af9fe0ae8f8b?q=80&w=800&auto=format&fit=crop" 
+                             alt="Televizijos bokštas" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/800x600/1e293b/ffffff?text=TV+Tower'">
+                        <span class="absolute top-4 right-4 bg-white/95 text-charcoal text-[10px] font-medium tracking-wider px-3 py-1 rounded-full uppercase">Panoraminis vaizdas</span>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-serif text-2xl font-semibold text-charcoal mb-2">Televizijos Bokštas (Fernsehturm)</h4>
+                        <p class="text-muted text-sm mb-4 leading-relaxed">
+                            Aukščiausias Vokietijos statinys (368 m) Alexanderplatz aikštėje su 360° besisukančiu restoranu.
+                        </p>
+                        <div class="flex items-center justify-between text-xs text-muted pt-4 border-t border-charcoal/10">
+                            <span><i class="fa-regular fa-clock mr-1"></i> 10:00 - 22:00</span>
+                            <span><i class="fa-solid fa-ticket mr-1"></i> Nuo €24.50</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kortelė 3 -->
+                <div class="bg-white rounded-[20px] overflow-hidden group hover:-translate-y-1 transition-all duration-300 border border-charcoal/5 shadow-sm hover:shadow-md">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1584003564911-a7a321c84e1c?q=80&w=800&auto=format&fit=crop" 
+                             alt="East Side Gallery" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/800x600/1e293b/ffffff?text=East+Side+Gallery'">
+                        <span class="absolute top-4 right-4 bg-white/95 text-charcoal text-[10px] font-medium tracking-wider px-3 py-1 rounded-full uppercase">Menas & Istorija</span>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-serif text-2xl font-semibold text-charcoal mb-2">Rytų Pusės Galerija</h4>
+                        <p class="text-muted text-sm mb-4 leading-relaxed">
+                            Ilgiausia išlikusi Berlyno sienos atkarpa (1.3 km), virtusi atvira meno galerija po atviru dangumi.
+                        </p>
+                        <div class="flex items-center justify-between text-xs text-muted pt-4 border-t border-charcoal/10">
+                            <span><i class="fa-regular fa-clock mr-1"></i> Visada atidaryta</span>
+                            <span><i class="fa-solid fa-euro-sign mr-1"></i> Nemokama</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kortelė 4 -->
+                <div class="bg-white rounded-[20px] overflow-hidden group hover:-translate-y-1 transition-all duration-300 border border-charcoal/5 shadow-sm hover:shadow-md">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?q=80&w=800&auto=format&fit=crop" 
+                             alt="Reichstag Building" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/800x600/1e293b/ffffff?text=Reichstag'">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-serif text-2xl font-semibold text-charcoal mb-2">Reichstagas (Parlamentas)</h4>
+                        <p class="text-muted text-sm mb-4 leading-relaxed">
+                            Vokietijos parlamento pastatas su įspūdingu stikliniu kupolu, iš kurio atsiveria nuostabus miesto vaizdas.
+                        </p>
+                        <div class="flex items-center justify-between text-xs text-muted pt-4 border-t border-charcoal/10">
+                            <span><i class="fa-regular fa-clock mr-1"></i> Registracija iš anksto</span>
+                            <span><i class="fa-solid fa-euro-sign mr-1"></i> Nemokama</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kortelė 5 -->
+                <div class="bg-white rounded-[20px] overflow-hidden group hover:-translate-y-1 transition-all duration-300 border border-charcoal/5 shadow-sm hover:shadow-md">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?q=80&w=800&auto=format&fit=crop" 
+                             alt="Museum Island" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/800x600/1e293b/ffffff?text=Museum+Island'">
+                        <span class="absolute top-4 right-4 bg-white/95 text-charcoal text-[10px] font-medium tracking-wider px-3 py-1 rounded-full uppercase">UNESCO</span>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-serif text-2xl font-semibold text-charcoal mb-2">Muziejų Sala (Museumsinsel)</h4>
+                        <p class="text-muted text-sm mb-4 leading-relaxed">
+                            Unikalus ansamblis Šprė upės saloje, talpinantis penkis pasaulinio lygio muziejus, įskaitant Pergamo.
+                        </p>
+                        <div class="flex items-center justify-between text-xs text-muted pt-4 border-t border-charcoal/10">
+                            <span><i class="fa-regular fa-clock mr-1"></i> 10:00 - 18:00</span>
+                            <span><i class="fa-solid fa-ticket mr-1"></i> Pass nuo €19</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kortelė 6 -->
+                <div class="bg-white rounded-[20px] overflow-hidden group hover:-translate-y-1 transition-all duration-300 border border-charcoal/5 shadow-sm hover:shadow-md">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1560969184-10fe8719e047?q=80&w=800&auto=format&fit=crop" 
+                             alt="Checkpoint Charlie" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/800x600/1e293b/ffffff?text=Checkpoint+Charlie'">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-serif text-2xl font-semibold text-charcoal mb-2">Checkpoint Charlie</h4>
+                        <p class="text-muted text-sm mb-4 leading-relaxed">
+                            Garsiausias Šaltojo karo laikų sienos perėjimo punktas tarp Rytų ir Vakarų Berlyno.
+                        </p>
+                        <div class="flex items-center justify-between text-xs text-muted pt-4 border-t border-charcoal/10">
+                            <span><i class="fa-regular fa-clock mr-1"></i> Laisvas priėjimas</span>
+                            <span><i class="fa-solid fa-euro-sign mr-1"></i> Nemokama</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RAJONŲ SEKCIJA (INTERAKTYVI) -->
+    <section id="rajonai" class="py-24 bg-sage/40 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-2xl mb-16">
+                <h2 class="text-xs font-medium tracking-[0.25em] uppercase text-charcoal-soft mb-4">Miesto atmosfera</h2>
+                <h3 class="font-serif text-3xl sm:text-5xl font-medium text-charcoal mb-4 leading-tight">
+                    Kiekvienas rajonas skirtingas.<br>
+                    <span class="text-marker">Visi autentiški.</span>
+                </h3>
+                <p class="text-charcoal-soft text-base sm:text-lg font-light">Kiekvienas rajonas (Kiez) turi savo unikalią sielą, gyvenimo ritmą ir kultūrą.</p>
+            </div>
+
+            <div class="flex flex-wrap gap-3 mb-12" id="district-tabs">
+                <button data-district="mitte" class="district-btn district-btn-active px-6 py-3 rounded-full font-medium text-sm transition-all bg-charcoal text-cream-light">
+                    Mitte
+                </button>
+                <button data-district="kreuzberg" class="district-btn px-6 py-3 rounded-full font-medium text-sm transition-all bg-white/80 text-charcoal-soft hover:bg-white border border-charcoal/5">
+                    Kreuzberg
+                </button>
+                <button data-district="friedrichshain" class="district-btn px-6 py-3 rounded-full font-medium text-sm transition-all bg-white/80 text-charcoal-soft hover:bg-white border border-charcoal/5">
+                    Friedrichshain
+                </button>
+                <button data-district="neukolln" class="district-btn px-6 py-3 rounded-full font-medium text-sm transition-all bg-white/80 text-charcoal-soft hover:bg-white border border-charcoal/5">
+                    Neukölln
+                </button>
+            </div>
+
+            <div id="district-content" class="editorial-card rounded-[28px] p-8 sm:p-12 transition-all">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                    <div>
+                        <span id="district-badge" class="inline-block text-[10px] font-medium tracking-[0.2em] uppercase text-muted mb-4">Istorinis Centras</span>
+                        <h4 id="district-title" class="font-serif text-3xl sm:text-4xl font-medium text-charcoal mb-4 italic">Mitte</h4>
+                        <p id="district-desc" class="text-charcoal-soft leading-relaxed mb-6 font-light">
+                            Mitte yra Berlyno širdis. Čia rasite svarbiausius istorinius objektus, prabangias parduotuves, Unter den Linden alėją ir muziejus. Tai puikus rajonas pirmam apsilankymui Berlyne.
+                        </p>
+                        <div class="space-y-3 mb-8">
+                            <div class="flex items-center gap-3 text-sm text-charcoal-soft">
+                                <span class="w-1.5 h-1.5 rounded-full bg-charcoal flex-shrink-0"></span>
+                                <span id="district-feat-1">Brandenburgo vartai & Reichstagas</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-charcoal-soft">
+                                <span class="w-1.5 h-1.5 rounded-full bg-charcoal flex-shrink-0"></span>
+                                <span id="district-feat-2">Prabangios kavinės ir boutique parduotuvės</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-charcoal-soft">
+                                <span class="w-1.5 h-1.5 rounded-full bg-charcoal flex-shrink-0"></span>
+                                <span id="district-feat-3">Puikus susisiekimas viešuoju transportu</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative h-72 sm:h-96 rounded-[24px] overflow-hidden">
+                        <img id="district-img" src="https://images.unsplash.com/photo-1560969184-10fe8719e047?q=80&w=1000&auto=format&fit=crop" 
+                             alt="Mitte rajonas" 
+                             class="w-full h-full object-cover transition-all duration-500"
+                             onerror="this.src='https://placehold.co/800x600/1e293b/ffffff?text=Berlin+District'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARŠRUTAI / PLANAVIMAS -->
+    <section id="marsrutai" class="py-24 bg-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-2xl mb-16">
+                <h2 class="text-xs font-medium tracking-[0.25em] uppercase text-muted mb-4">Sutaupykite laiko</h2>
+                <h3 class="font-serif text-3xl sm:text-5xl font-medium text-charcoal mb-4 leading-tight">
+                    Nieko neskubama.<br>
+                    <span class="text-marker">Įskaitant maršrutus.</span>
+                </h3>
+                <p class="text-charcoal-soft text-base sm:text-lg font-light">Pasirinkite maršrutą pagal savo kelionės trukmę ir išspauskite iš Berlyno maksimumą.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white border border-charcoal/5 rounded-[24px] p-8 flex flex-col justify-between hover:shadow-md transition-shadow">
+                    <div>
+                        <div class="font-serif text-3xl text-charcoal mb-6">1D</div>
+                        <h4 class="font-serif text-2xl font-medium text-charcoal mb-2">Ekspresas: 24 Valandos</h4>
+                        <p class="text-muted text-sm mb-6 font-light">Trumpa pažintis su pačiais svarbiausiais miesto akcentais.</p>
+                        <ul class="space-y-4 text-sm text-charcoal-soft mb-8 font-light">
+                            <li class="flex items-start gap-3">
+                                <span class="text-muted text-xs mt-0.5 flex-shrink-0">01</span>
+                                <span>Rytas: Reichstagas ir Brandenburgo Vartai</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-muted text-xs mt-0.5 flex-shrink-0">02</span>
+                                <span>Pietūs: Unter den Linden ir Currywurst ragavimas</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-muted text-xs mt-0.5 flex-shrink-0">03</span>
+                                <span>Vakaras: Televizijos bokštas & Alexanderplatz</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button type="button" class="w-full py-3 btn-pill text-sm justify-center">Žiūrėti detalų žemėlapį</button>
+                </div>
+
+                <div class="bg-cream-light border border-charcoal/10 rounded-[24px] p-8 flex flex-col justify-between relative shadow-lg">
+                    <span class="absolute -top-3 left-8 bg-charcoal text-cream-light text-[10px] font-medium px-4 py-1.5 rounded-full uppercase tracking-wider">Populiariausias</span>
+                    <div>
+                        <div class="font-serif text-3xl text-charcoal mb-6">3D</div>
+                        <h4 class="font-serif text-2xl font-medium text-charcoal mb-2">Klasikinis Savaitgalis</h4>
+                        <p class="text-muted text-sm mb-6 font-light">Idealus balansas tarp istorijos, kultūros ir naktinio gyvenimo.</p>
+                        <ul class="space-y-4 text-sm text-charcoal-soft mb-8 font-light">
+                            <li class="flex items-start gap-3">
+                                <span class="text-muted text-xs mt-0.5 flex-shrink-0">01</span>
+                                <span>1 Diena: Istorinis centras & Muziejų Sala</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-muted text-xs mt-0.5 flex-shrink-0">02</span>
+                                <span>2 Diena: East Side Gallery & Kreuzberg gatvės maistas</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-muted text-xs mt-0.5 flex-shrink-0">03</span>
+                                <span>3 Diena: Charlottenburg rūmai & Tiergarten parkas</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button type="button" class="w-full py-3 bg-charcoal text-cream-light rounded-full font-medium text-sm hover:opacity-90 transition-opacity">Parsisiųsti maršrutą (PDF)</button>
+                </div>
+
+                <div class="bg-white border border-charcoal/5 rounded-[24px] p-8 flex flex-col justify-between hover:shadow-md transition-shadow">
+                    <div>
+                        <div class="font-serif text-3xl text-charcoal mb-6">5D</div>
+                        <h4 class="font-serif text-2xl font-medium text-charcoal mb-2">Gilus Įsikvėpimas</h4>
+                        <p class="text-muted text-sm mb-6 font-light">Neskubus Berlyno tyrinėjimas ir išvyka į netoliese esantį Potsdamą.</p>
+                        <ul class="space-y-4 text-sm text-charcoal-soft mb-8 font-light">
+                            <li class="flex items-start gap-3">
+                                <span class="text-muted text-xs mt-0.5 flex-shrink-0">01–03</span>
+                                <span>Gilus Berlyno rajonų ir muziejų pažinimas</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-muted text-xs mt-0.5 flex-shrink-0">04</span>
+                                <span>Vienos dienos išvyka į Potsdamo Sanssouci rūmus</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-muted text-xs mt-0.5 flex-shrink-0">05</span>
+                                <span>Alternatyvusis menas, blusų turgūs ir klubai</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button type="button" class="w-full py-3 btn-pill text-sm justify-center">Žiūrėti detalų žemėlapį</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PATARIMAI IR GASTRO (KULINARIJA) -->
+    <section id="patarimai" class="py-24 bg-cream-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                <div>
+                    <h2 class="text-xs font-medium tracking-[0.25em] uppercase text-muted mb-4">Gastronomija & patarimai</h2>
+                    <h3 class="font-serif text-3xl sm:text-5xl font-medium text-charcoal mb-6 leading-tight">
+                        Kai kurie dalykai matomi.<br>
+                        <span class="text-marker-sage">Svarbiausi – paragauti.</span>
+                    </h3>
+                    <p class="text-charcoal-soft text-base sm:text-lg mb-10 font-light leading-relaxed">
+                        Berlynas yra garsus savo gatvės maisto kultūra. Čia persipina tradicinė vokiečių virtuvė ir Rytų šalių skoniai.
+                    </p>
+
+                    <div class="space-y-8">
+                        <div class="border-t border-charcoal/10 pt-6">
+                            <h4 class="font-serif text-xl font-medium text-charcoal mb-2">Currywurst</h4>
+                            <p class="text-muted text-sm font-light leading-relaxed">Tradicinė kepinta dešrelė su pikantišku pomidorų ir kario padažu. Ragaukite "Konnopke's Imbiss".</p>
+                        </div>
+                        <div class="border-t border-charcoal/10 pt-6">
+                            <h4 class="font-serif text-xl font-medium text-charcoal mb-2">Mustafa's Gemüse Kebap</h4>
+                            <p class="text-muted text-sm font-light leading-relaxed">Garsiausias pasaulyje daržovių kebabas Kreuzberge. Pasiruoškite pastovėti eilėje!</p>
+                        </div>
+                        <div class="border-t border-charcoal/10 pt-6">
+                            <h4 class="font-serif text-xl font-medium text-charcoal mb-2">BVG Transporto Bilietai</h4>
+                            <p class="text-muted text-sm font-light leading-relaxed">Vienas bilietas tinka metro (U-Bahn), traukiniams (S-Bahn), tramvajams ir autobusams. Nepamirškite pažymėti!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative min-h-[420px]">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=600&auto=format&fit=crop" 
+                         alt="Gatvės maistas" 
+                         class="rounded-[24px] w-48 sm:w-56 h-64 object-cover absolute left-0 top-8 shadow-md"
+                         onerror="this.src='https://placehold.co/600x400/e8e3d3/1a1a1a?text=Food'">
+                    <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=600&auto=format&fit=crop" 
+                         alt="Berlyno naktis" 
+                         class="rounded-[24px] w-40 sm:w-48 h-72 object-cover absolute left-32 sm:left-40 top-0 shadow-md"
+                         onerror="this.src='https://placehold.co/600x400/c4c8b8/1a1a1a?text=Nightlife'">
+                    <img src="https://images.unsplash.com/photo-1560969184-10fe8719e047?q=80&w=700&auto=format&fit=crop" 
+                         alt="Berlynas" 
+                         class="rounded-[24px] w-full max-w-md h-80 object-cover ml-auto mt-24 sm:mt-32 shadow-lg hidden sm:block"
+                         onerror="this.src='https://placehold.co/700x500/f2f0e4/1a1a1a?text=Berlin'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRENUMERATA / KONTAKTAI -->
+    <section id="kontaktas" class="py-24 bg-sage/30 relative overflow-hidden">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="editorial-card rounded-[32px] p-8 sm:p-14 text-center">
+                <p class="text-xs font-medium tracking-[0.25em] uppercase text-muted mb-6">Naujienlaiškis</p>
+                <h3 class="font-serif text-3xl sm:text-4xl font-medium text-charcoal mb-4 leading-tight">Gaukite naujausius Berlyno patarimus</h3>
+                <p class="text-charcoal-soft max-w-xl mx-auto mb-10 text-base font-light leading-relaxed">
+                    Prenumeruokite mūsų ikisavaitinį gido naujienlaiškį. Slaptos vietos, renginių kalendorius ir nuolaidos bilietams tiekiamos tiesiai į el. paštą.
+                </p>
+
+                <form id="newsletter-form" onsubmit="handleSubscribe(event)" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                    <input type="email" 
+                           id="email-input" 
+                           placeholder="Įveskite savo el. paštą..." 
+                           required 
+                           class="px-5 py-3.5 rounded-full bg-white border border-charcoal/10 text-charcoal placeholder-muted focus:outline-none focus:border-charcoal/30 flex-grow text-sm">
+                    <button type="submit" class="btn-pill text-sm whitespace-nowrap">
+                        Gauti gidą
+                    </button>
+                </form>
+
+                <div id="toast-message" class="hidden mt-6 p-4 bg-highlight-sage/50 border border-charcoal/10 text-charcoal rounded-2xl text-sm max-w-md mx-auto">
+                    Ačiū! Nemokamas Berlyno gidas išsiųstas į jūsų el. paštą.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTERIS -->
+    <footer class="bg-cream text-muted py-16 border-t border-charcoal/10 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <div class="md:col-span-2">
+                    <a href="#" class="font-serif text-2xl font-semibold tracking-[0.15em] text-charcoal uppercase mb-4 inline-block">
+                        Berlynas
+                    </a>
+                    <p class="text-muted max-w-sm font-light leading-relaxed">
+                        Neoficialus turizmo ir įkvėpimo gidas keliautojams, norintiems pažinti autentišką Berlyno dvasią.
+                    </p>
+                </div>
+
+                <div>
+                    <h5 class="text-charcoal font-medium text-xs tracking-[0.2em] uppercase mb-4">Navigacija</h5>
+                    <ul class="space-y-2 font-light">
+                        <li><a href="#lankytinos-vietos" class="hover:text-charcoal transition-colors">Lankytinos Vietos</a></li>
+                        <li><a href="#rajonai" class="hover:text-charcoal transition-colors">Miesto Rajonai</a></li>
+                        <li><a href="#marsrutai" class="hover:text-charcoal transition-colors">Maršrutai</a></li>
+                        <li><a href="#patarimai" class="hover:text-charcoal transition-colors">Patarimai</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="text-charcoal font-medium text-xs tracking-[0.2em] uppercase mb-4">Sekite mus</h5>
+                    <div class="flex space-x-3">
+                        <a href="#" class="w-10 h-10 rounded-full border border-charcoal/15 flex items-center justify-center text-charcoal-soft hover:bg-charcoal hover:text-cream-light transition-all" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-charcoal/15 flex items-center justify-center text-charcoal-soft hover:bg-charcoal hover:text-cream-light transition-all" aria-label="Facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-charcoal/15 flex items-center justify-center text-charcoal-soft hover:bg-charcoal hover:text-cream-light transition-all" aria-label="YouTube">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-charcoal/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-light">
+                <p>&copy; 2026 Berlyno Kelionių Gidas. Visos teisės saugomos.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-charcoal">Privatumo Politika</a>
+                    <a href="#" class="hover:text-charcoal">Naudojimosi Sąlygos</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERAKTYVŪS SKRIPTAI -->
+    <script>
+        // Mobilus meniu
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Rajonų duomenys interaktyvumui
+        const districtsData = {
+            mitte: {
+                badge: 'Istorinis Centras',
+                title: 'Mitte',
+                desc: 'Mitte yra Berlyno širdis. Čia rasite svarbiausius istorinius objektus, prabangias parduotuves, Unter den Linden alėją ir UNESCO muziejų salą. Tai puikus rajonas pirmam apsilankymui Berlyne.',
+                feat1: 'Brandenburgo vartai & Reichstagas',
+                feat2: 'Prabangios kavinės ir boutique parduotuvės',
+                feat3: 'Puikus susisiekimas viešuoju transportu',
+                img: 'https://images.unsplash.com/photo-1560969184-10fe8719e047?q=80&w=1000&auto=format&fit=crop'
+            },
+            kreuzberg: {
+                badge: 'Bohema & Maistas',
+                title: 'Kreuzberg',
+                desc: 'Garsėja savo nepakartojama alternatyvia kultūra, spalvingu street-art menu, turkiškais turgeliais ir gyvybingu naktiniu gyvenimu prie Landwehr kanalo.',
+                feat1: 'Garsusis "Mustafa\'s Gemüse Kebap"',
+                feat2: 'Gatvės menas ir neformalios galerijos',
+                feat3: 'Gyvybingas naktinis gyvenimas ir barai',
+                img: 'https://images.unsplash.com/photo-1584003564911-a7a321c84e1c?q=80&w=1000&auto=format&fit=crop'
+            },
+            friedrichshain: {
+                badge: 'Klubai & Sienos Menas',
+                title: 'Friedrichshain',
+                desc: 'Buvęs Rytų Berlyno rajonas, virtęs elektroninės muzikos ir jaunimo meka. Čia stovi East Side Gallery bei garsiausi pasaulio klubai.',
+                feat1: 'East Side Gallery (Berlyno siena)',
+                feat2: 'Simon-Dach-Straße kavinių gatvė',
+                feat3: 'Berghain ir kiti kultiniai klubai',
+                img: 'https://images.unsplash.com/photo-1566404791232-af9fe0ae8f8b?q=80&w=1000&auto=format&fit=crop'
+            },
+            neukolln: {
+                badge: 'Multikultūra & Mada',
+                title: 'Neukölln',
+                desc: 'Šiuo metu vienas madingiausių rajonų Europoje. Čia susipina įvairios kultūros, veikia Tempelhof buvęs oro uostas-parkas bei jaukios dizainerių studijos.',
+                feat1: 'Tempelhofer Feld rekreacinis parkas',
+                feat2: 'Kūrybiškos kavinės ir vintage parduotuvės',
+                feat3: 'Piknikai prie kanalo saulėlydžio metu',
+                img: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?q=80&w=1000&auto=format&fit=crop'
+            }
+        };
+
+        // Rajonų kortelių perjungimas
+        const districtBtns = document.querySelectorAll('.district-btn');
+        const badgeEl = document.getElementById('district-badge');
+        const titleEl = document.getElementById('district-title');
+        const descEl = document.getElementById('district-desc');
+        const feat1El = document.getElementById('district-feat-1');
+        const feat2El = document.getElementById('district-feat-2');
+        const feat3El = document.getElementById('district-feat-3');
+        const imgEl = document.getElementById('district-img');
+
+        districtBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Atnaujiname mygtukų stilių
+                districtBtns.forEach(b => {
+                    b.classList.remove('bg-charcoal', 'text-cream-light', 'district-btn-active');
+                    b.classList.add('bg-white/80', 'text-charcoal-soft', 'border', 'border-charcoal/5');
+                });
+                btn.classList.remove('bg-white/80', 'text-charcoal-soft', 'border', 'border-charcoal/5');
+                btn.classList.add('bg-charcoal', 'text-cream-light', 'district-btn-active');
+
+                // Atnaujiname turinį
+                const key = btn.getAttribute('data-district');
+                const data = districtsData[key];
+
+                if (data) {
+                    badgeEl.textContent = data.badge;
+                    titleEl.textContent = data.title;
+                    descEl.textContent = data.desc;
+                    feat1El.textContent = data.feat1;
+                    feat2El.textContent = data.feat2;
+                    feat3El.textContent = data.feat3;
+                    imgEl.src = data.img;
+                }
+            });
+        });
+
+        // Formos apdorojimas (be alert)
+        function handleSubscribe(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('email-input');
+            const toast = document.getElementById('toast-message');
+
+            if (emailInput.value) {
+                toast.classList.remove('hidden');
+                emailInput.value = '';
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                }, 5000);
+            }
+        }
+    </script>
+</body>
+</html>
